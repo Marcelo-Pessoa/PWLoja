@@ -1,10 +1,10 @@
-import express from 'express';
+import { Router } from 'express';
 import productRouter from '../resources/product/product.router';
 import languageRouter from '../resources/language/language.router';
 import userRouter from '../resources/user/user.router';
 import authRouter from '../resources/auth/auth.router';
 
-const router = express.Router();
+const router = Router();
 
 router.use(
   '/product',

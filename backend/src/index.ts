@@ -21,6 +21,8 @@ const env = getEnv();
 const app = express();
 const prisma = new PrismaClient();
 
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(setLangCookie);
@@ -38,7 +40,6 @@ app.use(
     cookie: { maxAge: 2 * 60 * 60 * 1000, httpOnly: true, secure: true },
   }),
 );
-app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(router);
 

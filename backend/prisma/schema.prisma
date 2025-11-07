@@ -47,6 +47,6 @@ model UserType {
 model Session {
   id       String   @id
   sid      String   @unique
-  data     String   @db.Text
-  expireAt DateTime
+  data     String   
+  expiresAt DateTime
 }
