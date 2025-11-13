@@ -9,6 +9,7 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from '../src/generated/prisma';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from './swagger-output.json';
+import cors from 'cors';
 
 declare module 'express-session' {
   interface SessionData {
@@ -24,6 +25,11 @@ const prisma = new PrismaClient();
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 app.use(cookieParser());
 app.use(setLangCookie);
 app.use(

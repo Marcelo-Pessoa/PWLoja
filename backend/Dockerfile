@@ -12,10 +12,10 @@ COPY package*.json .
 RUN npm ci omit=dev
 COPY --from=build /app/dist ./dist
 EXPOSE 6677
-CMD ["npm", "run", "start:prod"]
+CMD [ "npm", "run", "start:prod" ]
 
 FROM node:22-alpine3.22 AS development
 WORKDIR /app
 ENV NODE_ENV=development
 EXPOSE 6677
-RUN ["npm", "start"]
+CMD [ "npm", "start"]
