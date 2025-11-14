@@ -27,7 +27,8 @@ app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(express.json());
 app.use(
   cors({
-    origin: '*',
+    origin: env.FRONTEND_URL,
+    credentials: true,
   }),
 );
 app.use(cookieParser());

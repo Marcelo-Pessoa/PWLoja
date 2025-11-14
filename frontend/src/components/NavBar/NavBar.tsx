@@ -1,6 +1,6 @@
 "use client";
 
-import { CounterContext } from "@/providers/CounterProvider/CounterProvider";
+import { AuthContext } from "@/providers/AuthProvider/AuthProvider";
 import {
   Navbar,
   NavbarBrand,
@@ -10,11 +10,16 @@ import {
 } from "flowbite-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 export function NavBar() {
-  const { increment } = useContext(CounterContext);
-
+  const { user, logout } = useContext(AuthContext);
+  const router = useRouter();
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
   return (
     <Navbar fluid rounded>
       <NavbarBrand as={Link} href="https://flowbite-react.com">
@@ -42,9 +47,16 @@ export function NavBar() {
         </NavbarLink>
         <NavbarLink href="#">Pricing</NavbarLink>
         <NavbarLink href="#">Contact</NavbarLink>
-        <NavbarLink as={Link} href="/login">
-          Login
-        </NavbarLink>
+        {!user && (
+          <NavbarLink as={Link} href="/login">
+            Login
+          </NavbarLink>
+        )}
+        {user && (
+          <NavbarLink as={Link} onClick={handleLogout} href="#">
+            Logout
+          </NavbarLink>
+        )}
       </NavbarCollapse>
     </Navbar>
   );
