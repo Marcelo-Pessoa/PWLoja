@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar/NavBar";
 import CounterProvider from "@/providers/CounterProvider/CounterProvider";
 import AuthProvider from "@/providers/AuthProvider/AuthProvider";
+import CartProvider from "@/providers/CartProvider/CartProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,8 +20,10 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <CounterProvider>
-            <NavBar />
-            <div className="container mx-auto">{children}</div>
+            <CartProvider>
+              <NavBar />
+              <div className="container mx-auto">{children}</div>
+            </CartProvider>
           </CounterProvider>
         </AuthProvider>
       </body>

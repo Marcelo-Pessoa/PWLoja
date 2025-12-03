@@ -1,20 +1,23 @@
 "use client";
 
 import { Card } from "flowbite-react";
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import Link from "next/link";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import styles from "../Product.module.css";
 import { ProductDto } from "../Product.types";
+import { CartContext } from "@/providers/CartProvider/CartProvider";
 
 interface ProductCardProps {
   product: ProductDto;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const [qtdCart, setQtdCart] = useState<number>(0);
-  const decreaseCart = () => setQtdCart((p) => Math.max(p - 1, 0));
-  const increaseCart = () => setQtdCart((p) => Math.min(p + 1, 100));
+  const { cartProducts, incCartProduct, decCartProduct } =
+    useContext(CartContext);
+  const qtdCart = cartProducts[product.id];
+  const decreaseCart = () => decCartProduct(product.id);
+  const increaseCart = () => incCartProduct(product.id);
 
   return (
     <Card className="max-w-sm">
