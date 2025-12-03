@@ -7,8 +7,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js,json,ts,yaml src/index.ts",
-    "prisma": "docker exec backend-dev npx prisma migrate dev --name add-new-attrs-product-model",
+    "start": "nodemon --watch src --exec tsx src/index.ts",
+    "prisma": "docker exec backend-dev npx prisma",
     "seed": "docker exec backend-dev npx tsx prisma/seed.ts",
     "build": "tsc",
     "start:prod": "node dist/index.js",

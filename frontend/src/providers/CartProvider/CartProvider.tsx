@@ -1,5 +1,6 @@
 "use client";
 
+import api from "@/utils/api";
 import { createContext, ReactNode, useState } from "react";
 
 interface CartContextProps {
@@ -18,14 +19,26 @@ export const CartContext = createContext<CartContextProps>(initialCart);
 
 function CartProvider({ children }: { children: ReactNode }) {
   const [cartProducts, setCartProducts] = useState<Record<string, number>>({});
-  const incCartProduct = (productId: string) => {
+  const incCartProduct = async (productId: string) => {
+    try {
+      await api.post("/purchaseItem/inc", { productId });
+    } catch (err) {
+      console.log(err);
+      return;
+    }
     setCartProducts((c) => ({
       ...c,
       [productId]: (c[productId] ?? 0) + 1,
     }));
   };
 
-  const decCartProduct = (productId: string) => {
+  const decCartProduct = async (productId: string) => {
+    try {
+      await api.post("/purchaseItem/dec", { productId });
+    } catch (err) {
+      console.log(err);
+      return;
+    }
     if (cartProducts[productId] === 1) {
       const copyCartProducts = { ...cartProducts };
       delete copyCartProducts[productId];
