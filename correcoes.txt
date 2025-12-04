@@ -1,0 +1,5 @@
+Backend:
+- Resources purchase e purchaseItens não implementados corretamente
+
+Frontend:
+- 
